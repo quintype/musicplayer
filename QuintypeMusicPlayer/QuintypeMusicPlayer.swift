@@ -12,7 +12,9 @@ open class QuintypeMusicPlayer{
     
     
     public func Work() -> String {
+        
         return "its working"
+        
     }
     
     
