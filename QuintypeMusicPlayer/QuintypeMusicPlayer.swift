@@ -6,16 +6,18 @@
 //  Copyright © 2017 Albin.git. All rights reserved.
 //
 
-import Foundation
-
 open class QuintypeMusicPlayer{
     
+    public static let sharedInstance:QuintypeMusicPlayer = QuintypeMusicPlayer()
     
-    public func Work() -> String {
-        
-        return "its working"
-        
+    private var _musicPlayer:MusicPlayer?
+    
+    open static var musicPlayer:MusicPlayer{
+        get{
+            if QuintypeMusicPlayer.sharedInstance._musicPlayer == nil{
+                QuintypeMusicPlayer.sharedInstance._musicPlayer = MusicPlayer()
+            }
+            return QuintypeMusicPlayer.sharedInstance._musicPlayer!
+        }
     }
-    
-    
 }

@@ -9,6 +9,17 @@
 /* Begin PBXBuildFile section */
 		5D75F5901EF931B5005FA1AC /* QuintypeMusicPlayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 5D75F58E1EF931B5005FA1AC /* QuintypeMusicPlayer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5D75F5971EF931C6005FA1AC /* QuintypeMusicPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D75F5961EF931C6005FA1AC /* QuintypeMusicPlayer.swift */; };
+		5D75F5C11EF93E88005FA1AC /* Ancher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D75F5B61EF93E88005FA1AC /* Ancher.swift */; };
+		5D75F5C21EF93E88005FA1AC /* CMTimeWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D75F5B71EF93E88005FA1AC /* CMTimeWrapper.swift */; };
+		5D75F5C31EF93E88005FA1AC /* MediaControll.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D75F5B81EF93E88005FA1AC /* MediaControll.swift */; };
+		5D75F5C41EF93E88005FA1AC /* MulticastDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D75F5B91EF93E88005FA1AC /* MulticastDelegate.swift */; };
+		5D75F5C51EF93E88005FA1AC /* MusicPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D75F5BA1EF93E88005FA1AC /* MusicPlayer.swift */; };
+		5D75F5C61EF93E88005FA1AC /* PlayerActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D75F5BB1EF93E88005FA1AC /* PlayerActions.swift */; };
+		5D75F5C71EF93E88005FA1AC /* PlayerNotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D75F5BC1EF93E88005FA1AC /* PlayerNotifications.swift */; };
+		5D75F5C81EF93E88005FA1AC /* PlayerOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D75F5BD1EF93E88005FA1AC /* PlayerOptions.swift */; };
+		5D75F5C91EF93E88005FA1AC /* PlayerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D75F5BE1EF93E88005FA1AC /* PlayerProtocol.swift */; };
+		5D75F5CA1EF93E88005FA1AC /* Popup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D75F5BF1EF93E88005FA1AC /* Popup.swift */; };
+		5D75F5CB1EF93E88005FA1AC /* TrackPlayList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D75F5C01EF93E88005FA1AC /* TrackPlayList.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -16,6 +27,17 @@
 		5D75F58E1EF931B5005FA1AC /* QuintypeMusicPlayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QuintypeMusicPlayer.h; sourceTree = "<group>"; };
 		5D75F58F1EF931B5005FA1AC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5D75F5961EF931C6005FA1AC /* QuintypeMusicPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuintypeMusicPlayer.swift; sourceTree = "<group>"; };
+		5D75F5B61EF93E88005FA1AC /* Ancher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Ancher.swift; sourceTree = "<group>"; };
+		5D75F5B71EF93E88005FA1AC /* CMTimeWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CMTimeWrapper.swift; sourceTree = "<group>"; };
+		5D75F5B81EF93E88005FA1AC /* MediaControll.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaControll.swift; sourceTree = "<group>"; };
+		5D75F5B91EF93E88005FA1AC /* MulticastDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MulticastDelegate.swift; sourceTree = "<group>"; };
+		5D75F5BA1EF93E88005FA1AC /* MusicPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MusicPlayer.swift; sourceTree = "<group>"; };
+		5D75F5BB1EF93E88005FA1AC /* PlayerActions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerActions.swift; sourceTree = "<group>"; };
+		5D75F5BC1EF93E88005FA1AC /* PlayerNotifications.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerNotifications.swift; sourceTree = "<group>"; };
+		5D75F5BD1EF93E88005FA1AC /* PlayerOptions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerOptions.swift; sourceTree = "<group>"; };
+		5D75F5BE1EF93E88005FA1AC /* PlayerProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerProtocol.swift; sourceTree = "<group>"; };
+		5D75F5BF1EF93E88005FA1AC /* Popup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Popup.swift; sourceTree = "<group>"; };
+		5D75F5C01EF93E88005FA1AC /* TrackPlayList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackPlayList.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -48,6 +70,17 @@
 		5D75F58D1EF931B5005FA1AC /* QuintypeMusicPlayer */ = {
 			isa = PBXGroup;
 			children = (
+				5D75F5B61EF93E88005FA1AC /* Ancher.swift */,
+				5D75F5B71EF93E88005FA1AC /* CMTimeWrapper.swift */,
+				5D75F5B81EF93E88005FA1AC /* MediaControll.swift */,
+				5D75F5B91EF93E88005FA1AC /* MulticastDelegate.swift */,
+				5D75F5BA1EF93E88005FA1AC /* MusicPlayer.swift */,
+				5D75F5BB1EF93E88005FA1AC /* PlayerActions.swift */,
+				5D75F5BC1EF93E88005FA1AC /* PlayerNotifications.swift */,
+				5D75F5BD1EF93E88005FA1AC /* PlayerOptions.swift */,
+				5D75F5BE1EF93E88005FA1AC /* PlayerProtocol.swift */,
+				5D75F5BF1EF93E88005FA1AC /* Popup.swift */,
+				5D75F5C01EF93E88005FA1AC /* TrackPlayList.swift */,
 				5D75F58E1EF931B5005FA1AC /* QuintypeMusicPlayer.h */,
 				5D75F58F1EF931B5005FA1AC /* Info.plist */,
 				5D75F5961EF931C6005FA1AC /* QuintypeMusicPlayer.swift */,
@@ -135,7 +168,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5D75F5C61EF93E88005FA1AC /* PlayerActions.swift in Sources */,
+				5D75F5C21EF93E88005FA1AC /* CMTimeWrapper.swift in Sources */,
+				5D75F5C91EF93E88005FA1AC /* PlayerProtocol.swift in Sources */,
+				5D75F5C11EF93E88005FA1AC /* Ancher.swift in Sources */,
+				5D75F5C71EF93E88005FA1AC /* PlayerNotifications.swift in Sources */,
+				5D75F5CB1EF93E88005FA1AC /* TrackPlayList.swift in Sources */,
+				5D75F5C51EF93E88005FA1AC /* MusicPlayer.swift in Sources */,
+				5D75F5C41EF93E88005FA1AC /* MulticastDelegate.swift in Sources */,
+				5D75F5C81EF93E88005FA1AC /* PlayerOptions.swift in Sources */,
 				5D75F5971EF931C6005FA1AC /* QuintypeMusicPlayer.swift in Sources */,
+				5D75F5CA1EF93E88005FA1AC /* Popup.swift in Sources */,
+				5D75F5C31EF93E88005FA1AC /* MediaControll.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -299,6 +343,7 @@
 				5D75F5951EF931B5005FA1AC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
