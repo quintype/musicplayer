@@ -8,7 +8,7 @@
 
 import Foundation
 
-class CMTimeWrapper:NSObject{
+open class CMTimeWrapper:NSObject{
     var seconds:Double
     var value:Int64
     var timeScale:Int32

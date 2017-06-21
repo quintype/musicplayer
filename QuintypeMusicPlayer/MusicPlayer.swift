@@ -70,7 +70,7 @@ open class Player: NSObject {
     
     var playerItemDIdPlayToItem:NotificationBlock?
     
-    var multicastDelegate:MulticastDelegate<MusicPlayerDelegate>!
+    open var multicastDelegate:MulticastDelegate<MusicPlayerDelegate>!
     var kInterval = 0.5
     var playerState: PlayerState!
     

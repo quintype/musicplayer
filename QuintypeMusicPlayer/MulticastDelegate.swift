@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 
-class MulticastDelegate<T>: NSObject {
+open class MulticastDelegate<T>: NSObject {
     
     var weakDelegates:NSHashTable<AnyObject> = NSHashTable.weakObjects()
     

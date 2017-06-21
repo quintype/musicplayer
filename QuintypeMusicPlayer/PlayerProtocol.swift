@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol MusicPlayerDataSource:class{
+public protocol MusicPlayerDataSource:class{
     
     func musicPlayerDidReachEndOfCurrentItem(manager:Player)
     func musicPlayerShoulMoveToNextItem(manager:Player) -> Bool
@@ -23,7 +23,7 @@ protocol MusicPlayerDataSource:class{
 }
 
 
-protocol MusicPlayerDelegate:class{
+public protocol MusicPlayerDelegate:class{
     
     func musicPlayerPeriodicEvent(manager:Player,periodicTimeObserverEventDidOccur time:CMTimeWrapper)
     func musicPlayerSyncScrubber(manager: Player, syncScrubberWithCurrent time: Double, duration:Double)

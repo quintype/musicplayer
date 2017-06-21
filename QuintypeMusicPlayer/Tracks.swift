@@ -9,7 +9,7 @@
 import Foundation
 //import Soundcloud
 
-class Tracks:NSObject{
+open class Tracks:NSObject{
     ///Track's identifier
     public var id: NSNumber?
     
@@ -43,7 +43,7 @@ class Tracks:NSObject{
     public var trackDict: [String:AnyObject]?
     
     
-    override public func setValue(_ value: Any?, forKey key: String) {
+    override open func setValue(_ value: Any?, forKey key: String) {
         
         if key == "user" {
             let user = User1()
@@ -57,26 +57,8 @@ class Tracks:NSObject{
             }
             
             self.user = user
-        }else if key == "artwork_url"{
-            
-            if let unwrappedUrl = value as? String{
-              
-                self.artwork_url = unwrappedUrl
-                
-            }else{
-                super.setValue(value, forKey: key)
-            }
-            
-        }else if key == "stream_url"{
-            if let unwrappedStreamingUrl = value as? String{
-                
-                self.stream_url = unwrappedStreamingUrl
-                
-            }else{
-                super.setValue(value, forKey: key)
-            }
-            
-        }else {
+    
+    }else {
             super.setValue(value, forKey: key)
         }
     }
