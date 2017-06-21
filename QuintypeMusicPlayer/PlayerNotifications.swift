@@ -10,14 +10,14 @@ import Foundation
 import AVFoundation
 import UIKit
 
-extension MusicPlayer{
+extension Player{
     
     func addStatusObservers(){
-        self.playerItem?.addObserver(self, forKeyPath: "status", options: .new, context: &MusicPlayer.randomContextForObserver)
+        self.playerItem?.addObserver(self, forKeyPath: "status", options: .new, context: &Player.randomContextForObserver)
         
-        self.playerItem?.addObserver(self, forKeyPath: "playbackBufferEmpty", options: .new, context: &MusicPlayer.randomContextForObserver)
+        self.playerItem?.addObserver(self, forKeyPath: "playbackBufferEmpty", options: .new, context: &Player.randomContextForObserver)
         
-        self.playerItem?.addObserver(self, forKeyPath: "playbackLikelyToKeepUp", options: .new, context: &MusicPlayer.randomContextForObserver)
+        self.playerItem?.addObserver(self, forKeyPath: "playbackLikelyToKeepUp", options: .new, context: &Player.randomContextForObserver)
         
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: nil)
         
@@ -65,7 +65,7 @@ extension MusicPlayer{
     override open func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         
         
-        if (keyPath ?? "" == "status")  && context == &MusicPlayer.randomContextForObserver{
+        if (keyPath ?? "" == "status")  && context == &Player.randomContextForObserver{
             
             if let playerItemD = object as? AVPlayerItem{
                 
@@ -117,7 +117,7 @@ extension MusicPlayer{
                 }
             }
             
-        }else if  (keyPath ?? "" == "playbackLikelyToKeepUp")  && context == &MusicPlayer.randomContextForObserver{
+        }else if  (keyPath ?? "" == "playbackLikelyToKeepUp")  && context == &Player.randomContextForObserver{
             
             if self.playerItem?.isPlaybackLikelyToKeepUp ?? false{
                 
@@ -143,7 +143,7 @@ extension MusicPlayer{
                 print("buffering")
             }
         }
-        else if  (keyPath ?? "" == "playbackBufferEmpty")  && context == &MusicPlayer.randomContextForObserver{
+        else if  (keyPath ?? "" == "playbackBufferEmpty")  && context == &Player.randomContextForObserver{
             
             self.playerState = PlayerState.Buffering
             

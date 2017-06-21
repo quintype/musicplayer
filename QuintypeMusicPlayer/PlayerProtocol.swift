@@ -10,13 +10,13 @@ import Foundation
 
 protocol MusicPlayerDataSource:class{
     
-    func musicPlayerDidReachEndOfCurrentItem(manager:MusicPlayer)
-    func musicPlayerShoulMoveToNextItem(manager:MusicPlayer) -> Bool
-    func musicPlayerShoulMoveToPreviousItem(manager:MusicPlayer) -> Bool
-    func musicPlayerDidAskForNextItem(manager:MusicPlayer) -> URL?
-    func musicPlayerDidAskForPreviousItem(manager:MusicPlayer) -> URL?
-    func musicPlayerDidAskForArtWorksImageUrl(manager:MusicPlayer,size:ArtWorks) -> URL?
-    func musicPlayerDidAskForTrackTitleAndAuthor(manager:MusicPlayer) -> (String,String)
+    func musicPlayerDidReachEndOfCurrentItem(manager:Player)
+    func musicPlayerShoulMoveToNextItem(manager:Player) -> Bool
+    func musicPlayerShoulMoveToPreviousItem(manager:Player) -> Bool
+    func musicPlayerDidAskForNextItem(manager:Player) -> URL?
+    func musicPlayerDidAskForPreviousItem(manager:Player) -> URL?
+    func musicPlayerDidAskForArtWorksImageUrl(manager:Player,size:ArtWorks) -> URL?
+    func musicPlayerDidAskForTrackTitleAndAuthor(manager:Player) -> (String,String)
     func musicPlayerDidAskForQueue() -> [Tracks]
     func musicPlayerDidAskForCurrentSongIndex() -> Int
     
@@ -25,10 +25,10 @@ protocol MusicPlayerDataSource:class{
 
 protocol MusicPlayerDelegate:class{
     
-    func musicPlayerPeriodicEvent(manager:MusicPlayer,periodicTimeObserverEventDidOccur time:CMTimeWrapper)
-    func musicPlayerSyncScrubber(manager: MusicPlayer, syncScrubberWithCurrent time: Double, duration:Double)
-    func resetDisplayIfNecessary(manager:MusicPlayer)
-    func durationDidBecomeInvalidWhileSyncingScrubber(manager:MusicPlayer)
+    func musicPlayerPeriodicEvent(manager:Player,periodicTimeObserverEventDidOccur time:CMTimeWrapper)
+    func musicPlayerSyncScrubber(manager: Player, syncScrubberWithCurrent time: Double, duration:Double)
+    func resetDisplayIfNecessary(manager:Player)
+    func durationDidBecomeInvalidWhileSyncingScrubber(manager:Player)
     func setPlayButton(state:PlayerState)
     func setPlayeritemDuration(duration:Double)
     func didsetArtWorkWithUrl(url:URL?)

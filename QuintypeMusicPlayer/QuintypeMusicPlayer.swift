@@ -1,23 +1,23 @@
 //
 //  QuintypePlayer.swift
-//  QuintypeMusicPlayer
+//  QuintypePlayer
 //
 //  Created by Albin.git on 6/20/17.
 //  Copyright © 2017 Albin.git. All rights reserved.
 //
 
-open class QuintypeMusicPlayer{
+open class QuintypePlayer{
     
-    public static let sharedInstance:QuintypeMusicPlayer = QuintypeMusicPlayer()
+    public static let sharedInstance:QuintypePlayer = QuintypePlayer()
     
-    private var _musicPlayer:MusicPlayer?
+    private var _musicPlayer:Player?
     
-    open static var musicPlayer:MusicPlayer{
+    open static var player:Player{
         get{
-            if QuintypeMusicPlayer.sharedInstance._musicPlayer == nil{
-                QuintypeMusicPlayer.sharedInstance._musicPlayer = MusicPlayer()
+            if QuintypePlayer.sharedInstance._musicPlayer == nil{
+                QuintypePlayer.sharedInstance._musicPlayer = Player()
             }
-            return QuintypeMusicPlayer.sharedInstance._musicPlayer!
+            return QuintypePlayer.sharedInstance._musicPlayer!
         }
     }
 }

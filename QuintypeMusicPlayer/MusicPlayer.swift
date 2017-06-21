@@ -11,9 +11,9 @@ import AVFoundation
 import MediaPlayer
 //import Quintype
 
-open class MusicPlayer: NSObject {
+open class Player: NSObject {
     
-    open static let sharedInstance = MusicPlayer()
+    open static let sharedInstance = Player()
 
     static var randomContextForObserver:Int = 0
     var playerItem:AVPlayerItem?
@@ -147,9 +147,9 @@ open class MusicPlayer: NSObject {
     func configure(playerAttributes:Dictionary<String,Any>?){
         guard let attributes = playerAttributes else{return}
         
-        if let bgPolicy = (attributes[MusicPlayer.BackgroundPolicy] as? NSNumber)?.boolValue{
+        if let bgPolicy = (attributes[Player.BackgroundPolicy] as? NSNumber)?.boolValue{
             if bgPolicy{
-                MusicPlayer.enableBackgroundPlay()
+                Player.enableBackgroundPlay()
             }
             
         }

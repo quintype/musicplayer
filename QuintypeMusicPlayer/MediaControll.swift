@@ -11,7 +11,7 @@ import MediaPlayer
 
 //MARK: - Control Center NowPlaying
 
-extension MusicPlayer{
+extension Player{
     
     func configureCommandCenter() {
         

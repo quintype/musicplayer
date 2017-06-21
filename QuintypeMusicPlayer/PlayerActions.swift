@@ -13,7 +13,7 @@ import UIKit
 
 //MARK: - Player Actions
 
-extension MusicPlayer{
+extension Player{
     
     /* The user is dragging the movie controller thumb to scrub through the movie. */
     func beginScrubbing() {
