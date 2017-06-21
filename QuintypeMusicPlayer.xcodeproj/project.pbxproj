@@ -20,6 +20,7 @@
 		5D75F5C91EF93E88005FA1AC /* PlayerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D75F5BE1EF93E88005FA1AC /* PlayerProtocol.swift */; };
 		5D75F5CA1EF93E88005FA1AC /* Popup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D75F5BF1EF93E88005FA1AC /* Popup.swift */; };
 		5D75F5CB1EF93E88005FA1AC /* TrackPlayList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D75F5C01EF93E88005FA1AC /* TrackPlayList.swift */; };
+		5D9004851EFA4D5F00182CE2 /* SafeJsonObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D9004841EFA4D5F00182CE2 /* SafeJsonObject.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +39,7 @@
 		5D75F5BE1EF93E88005FA1AC /* PlayerProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerProtocol.swift; sourceTree = "<group>"; };
 		5D75F5BF1EF93E88005FA1AC /* Popup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Popup.swift; sourceTree = "<group>"; };
 		5D75F5C01EF93E88005FA1AC /* TrackPlayList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackPlayList.swift; sourceTree = "<group>"; };
+		5D9004841EFA4D5F00182CE2 /* SafeJsonObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SafeJsonObject.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,6 +72,7 @@
 		5D75F58D1EF931B5005FA1AC /* QuintypeMusicPlayer */ = {
 			isa = PBXGroup;
 			children = (
+				5D9004831EFA4D4900182CE2 /* SafeJson */,
 				5D75F5B61EF93E88005FA1AC /* Ancher.swift */,
 				5D75F5B71EF93E88005FA1AC /* CMTimeWrapper.swift */,
 				5D75F5B81EF93E88005FA1AC /* MediaControll.swift */,
@@ -86,6 +89,14 @@
 				5D75F5961EF931C6005FA1AC /* QuintypeMusicPlayer.swift */,
 			);
 			path = QuintypeMusicPlayer;
+			sourceTree = "<group>";
+		};
+		5D9004831EFA4D4900182CE2 /* SafeJson */ = {
+			isa = PBXGroup;
+			children = (
+				5D9004841EFA4D5F00182CE2 /* SafeJsonObject.swift */,
+			);
+			name = SafeJson;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -180,6 +191,7 @@
 				5D75F5971EF931C6005FA1AC /* QuintypeMusicPlayer.swift in Sources */,
 				5D75F5CA1EF93E88005FA1AC /* Popup.swift in Sources */,
 				5D75F5C31EF93E88005FA1AC /* MediaControll.swift in Sources */,
+				5D9004851EFA4D5F00182CE2 /* SafeJsonObject.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

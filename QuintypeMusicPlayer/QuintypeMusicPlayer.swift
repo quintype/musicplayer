@@ -6,7 +6,7 @@
 //  Copyright © 2017 Albin.git. All rights reserved.
 //
 
-open class QuintypePlayer{
+open class QuintypeMusicPlayer{
     
     public static let sharedInstance:QuintypePlayer = QuintypePlayer()
     

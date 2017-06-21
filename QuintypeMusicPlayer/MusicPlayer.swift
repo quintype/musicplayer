@@ -149,7 +149,7 @@ open class Player: NSObject {
         
         if let bgPolicy = (attributes[Player.BackgroundPolicy] as? NSNumber)?.boolValue{
             if bgPolicy{
-                Player.enableBackgroundPlay()
+            Player.enableBackgroundPlay()
             }
             
         }

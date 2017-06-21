@@ -10,12 +10,84 @@ import Foundation
 //import Soundcloud
 
 class Tracks:NSObject{
-    var track:String?
+    ///Track's identifier
+    public var id: NSNumber?
     
-//    init(track:Track){
-//        self.track = track
-//        super.init()
-//    }
+    ///Creation date of the track
+    public var created_at: NSNumber?
+    
+    ///User that created the track (not a full user)
+    public var user: User1?
+    
+    ///Track duration
+    public var duration: NSNumber?
+    
+    ///Is streamable
+    public var streamable: Bool?
+    
+    ///Is downloadable
+    public var downloadable: Bool?
+    
+    ///Streaming URL
+    public var stream_url: String?
+    
+    ///Downloading URL
+    public var download_url: String?
+    
+    ///Track title
+    public var title: String?
+    
+    ///Image URL to artwork
+    public var artwork_url: String?
+    
+    public var trackDict: [String:AnyObject]?
+    
+    
+    override public func setValue(_ value: Any?, forKey key: String) {
+        
+        if key == "user" {
+            let user = User1()
+            let data = value as? [String : AnyObject]
+            
+            if let userName = data?["username"] as? String{
+                user.username = userName
+            }
+            if let id = data?["id"] as? NSNumber{
+                user.id = id
+            }
+            
+            self.user = user
+        }else if key == "artwork_url"{
+            
+            if let unwrappedUrl = value as? String{
+              
+                self.artwork_url = unwrappedUrl
+                
+            }else{
+                super.setValue(value, forKey: key)
+            }
+            
+        }else if key == "stream_url"{
+            if let unwrappedStreamingUrl = value as? String{
+                
+                self.stream_url = unwrappedStreamingUrl
+                
+            }else{
+                super.setValue(value, forKey: key)
+            }
+            
+        }else {
+            super.setValue(value, forKey: key)
+        }
+    }
+}
+
+public class User1 : SafeJsonObject{
+    ///User's identifier
+    public var id: NSNumber?
+    
+    ///Username
+    public var username: String?
     
 }
 
