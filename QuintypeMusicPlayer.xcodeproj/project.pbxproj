@@ -19,7 +19,7 @@
 		5D75F5C81EF93E88005FA1AC /* PlayerOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D75F5BD1EF93E88005FA1AC /* PlayerOptions.swift */; };
 		5D75F5C91EF93E88005FA1AC /* PlayerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D75F5BE1EF93E88005FA1AC /* PlayerProtocol.swift */; };
 		5D75F5CA1EF93E88005FA1AC /* Popup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D75F5BF1EF93E88005FA1AC /* Popup.swift */; };
-		5D75F5CB1EF93E88005FA1AC /* TrackPlayList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D75F5C01EF93E88005FA1AC /* TrackPlayList.swift */; };
+		5D75F5CB1EF93E88005FA1AC /* Tracks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D75F5C01EF93E88005FA1AC /* Tracks.swift */; };
 		5D9004851EFA4D5F00182CE2 /* SafeJsonObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D9004841EFA4D5F00182CE2 /* SafeJsonObject.swift */; };
 /* End PBXBuildFile section */
 
@@ -38,7 +38,7 @@
 		5D75F5BD1EF93E88005FA1AC /* PlayerOptions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerOptions.swift; sourceTree = "<group>"; };
 		5D75F5BE1EF93E88005FA1AC /* PlayerProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerProtocol.swift; sourceTree = "<group>"; };
 		5D75F5BF1EF93E88005FA1AC /* Popup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Popup.swift; sourceTree = "<group>"; };
-		5D75F5C01EF93E88005FA1AC /* TrackPlayList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackPlayList.swift; sourceTree = "<group>"; };
+		5D75F5C01EF93E88005FA1AC /* Tracks.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tracks.swift; sourceTree = "<group>"; };
 		5D9004841EFA4D5F00182CE2 /* SafeJsonObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SafeJsonObject.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -83,7 +83,7 @@
 				5D75F5BD1EF93E88005FA1AC /* PlayerOptions.swift */,
 				5D75F5BE1EF93E88005FA1AC /* PlayerProtocol.swift */,
 				5D75F5BF1EF93E88005FA1AC /* Popup.swift */,
-				5D75F5C01EF93E88005FA1AC /* TrackPlayList.swift */,
+				5D75F5C01EF93E88005FA1AC /* Tracks.swift */,
 				5D75F58E1EF931B5005FA1AC /* QuintypeMusicPlayer.h */,
 				5D75F58F1EF931B5005FA1AC /* Info.plist */,
 				5D75F5961EF931C6005FA1AC /* QuintypeMusicPlayer.swift */,
@@ -184,7 +184,7 @@
 				5D75F5C91EF93E88005FA1AC /* PlayerProtocol.swift in Sources */,
 				5D75F5C11EF93E88005FA1AC /* Ancher.swift in Sources */,
 				5D75F5C71EF93E88005FA1AC /* PlayerNotifications.swift in Sources */,
-				5D75F5CB1EF93E88005FA1AC /* TrackPlayList.swift in Sources */,
+				5D75F5CB1EF93E88005FA1AC /* Tracks.swift in Sources */,
 				5D75F5C51EF93E88005FA1AC /* MusicPlayer.swift in Sources */,
 				5D75F5C41EF93E88005FA1AC /* MulticastDelegate.swift in Sources */,
 				5D75F5C81EF93E88005FA1AC /* PlayerOptions.swift in Sources */,
