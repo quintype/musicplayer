@@ -16,7 +16,7 @@ import UIKit
 extension Player{
     
     /* The user is dragging the movie controller thumb to scrub through the movie. */
-    func beginScrubbing() {
+    public func beginScrubbing() {
         scrubbingRate = self.player.rate
         self.player.rate = 0.0
         //self.removeObservers()
@@ -25,7 +25,7 @@ extension Player{
     }
     
     /* The user has released the movie thumb control to stop scrubbing through the movie. */
-    func endScrubbing() {
+    public func endScrubbing() {
         
         if timeObserver == nil{
             let playerItemDuration = self.currentPlayerItemDuration
@@ -41,7 +41,7 @@ extension Player{
         }
     }
     
-    func scrub(value:Float,minValue:Float,maxValue:Float,isSeeking seekValue:@escaping (Bool) -> ()) {
+    public  func scrub(value:Float,minValue:Float,maxValue:Float,isSeeking seekValue:@escaping (Bool) -> ()) {
         let playerItemDuration = self.currentPlayerItemDuration
         
         if playerItemDuration == kCMTimeInvalid{
@@ -73,7 +73,7 @@ extension Player{
         }
     }
     
-    func didClickOnPlay(){
+    public  func didClickOnPlay(){
         
         //currently not playing Should Play
         
@@ -102,7 +102,7 @@ extension Player{
         }
     }
     
-    func didClickOnNext(){
+    public func didClickOnNext(){
         
         guard let datasource = self.dataSource else {self.removeStatusObservers(); return}
         
@@ -119,7 +119,7 @@ extension Player{
         }
     }
     
-    func didClickOnPrevious(){
+    public  func didClickOnPrevious(){
         guard let datasource = self.dataSource else {self.removeStatusObservers(); return}
         
         self.multicastDelegate.invoke { (delegate) in
@@ -135,12 +135,12 @@ extension Player{
         }
     }
     
-    func didFastForward(withRate:Float){
+    public  func didFastForward(withRate:Float){
         self.kInterval = Double(withRate)/0.5
         self.player.rate = withRate
     }
     
-    func didRewindTenSeconds(value:Float){
+    public  func didRewindTenSeconds(value:Float){
         
         self.scrub(value: value, minValue: 0, maxValue: 1) { (seeking) in
             print(seeking)

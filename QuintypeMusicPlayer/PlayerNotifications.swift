@@ -13,11 +13,11 @@ import UIKit
 extension Player{
     
     func addStatusObservers(){
-        self.playerItem?.addObserver(self, forKeyPath: "status", options: .new, context: &Player.randomContextForObserver)
+        self.playerItem?.addObserver(self, forKeyPath: "status", options: [.initial,.old], context: &Player.randomContextForObserver)
         
-        self.playerItem?.addObserver(self, forKeyPath: "playbackBufferEmpty", options: .new, context: &Player.randomContextForObserver)
+        self.playerItem?.addObserver(self, forKeyPath: "playbackBufferEmpty", options: [.initial,.old], context: &Player.randomContextForObserver)
         
-        self.playerItem?.addObserver(self, forKeyPath: "playbackLikelyToKeepUp", options: .new, context: &Player.randomContextForObserver)
+        self.playerItem?.addObserver(self, forKeyPath: "playbackLikelyToKeepUp", options: [.new,.old], context: &Player.randomContextForObserver)
         
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: nil)
         
@@ -102,8 +102,8 @@ extension Player{
                         delegate.setPlayButton(state: PlayerState.ReadyToPlay)
                     }
                     // TODO: - Add UI for popup error
-                    //                    let banner = Banner(title: "Incorrect URL", subtitle: "Playing next item")
-                    //                    banner.show()
+                    let banner = Banner(title: "Incorrect URL", subtitle: "Playing next item")
+                    banner.show()
                     
                     
                     self.didClickOnNext()
@@ -165,5 +165,18 @@ extension Player{
         else{
             super.observeValue(forKeyPath: keyPath, of: object, change: change, context: context)
         }
+    }
+    
+    func removeStatusObservers(){
+        if self.playerItem != nil{
+            self.playerItem?.removeObserver(self, forKeyPath: "status")
+            self.playerItem?.removeObserver(self, forKeyPath: "playbackBufferEmpty")
+            self.playerItem?.removeObserver(self, forKeyPath: "playbackLikelyToKeepUp")
+            self.playerItem = nil
+            NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "AVPlayerItemBecameCurrentNotification"), object: nil)
+        }
+        
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: nil)
+        
     }
 }

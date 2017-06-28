@@ -9,7 +9,7 @@
 import Foundation
 //import Soundcloud
 
-open class Tracks:NSObject{
+open class Tracks:SafeJsonObject{
     ///Track's identifier
     public var id: NSNumber?
     

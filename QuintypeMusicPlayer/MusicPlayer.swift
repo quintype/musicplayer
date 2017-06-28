@@ -13,14 +13,14 @@ import MediaPlayer
 
 open class Player: NSObject {
     
-    open static let sharedInstance = Player()
+    open static let sharedInstance = Player(playerAttributes: [Player.BackgroundPolicy:NSNumber.init(value: true)])
 
     static var randomContextForObserver:Int = 0
     var playerItem:AVPlayerItem?
     var timeObserver:Any?
     var _timeObserverQueue:DispatchQueue?
     
-    weak var dataSource:MusicPlayerDataSource?{
+    open weak var dataSource:MusicPlayerDataSource?{
         
         didSet {    //called when dataSource changes
             guard let unwrappedDelegate = self.multicastDelegate else {
@@ -53,11 +53,11 @@ open class Player: NSObject {
     
     var bgTaskIdentifier = UIBackgroundTaskInvalid
     public static let BackgroundPolicy:String = "Background_Policy"
-    var player:AVPlayer!
+    open var player:AVPlayer!
     
     var scrubbingRate : Float!
     
-    var currentPlayerItemDuration:CMTime{
+    open var currentPlayerItemDuration:CMTime{
         get{
             if self.player.currentItem == nil{
                 return kCMTimeInvalid
@@ -81,7 +81,7 @@ open class Player: NSObject {
     
     var nowPlayingInfo: [String : AnyObject]?
     
-    var playerHeight:CGFloat = 0
+    open var playerHeight:CGFloat = 0
     
     required public init(playerAttributes:Dictionary<String,Any>? = nil){
         super.init()
@@ -162,16 +162,7 @@ open class Player: NSObject {
         self.configurePlayerItemDidEndBlock()
     }
     
-    func removeStatusObservers(){
-        if self.playerItem != nil{
-            self.playerItem?.removeObserver(self, forKeyPath: "status")
-            self.playerItem?.removeObserver(self, forKeyPath: "playbackBufferEmpty")
-            self.playerItem?.removeObserver(self, forKeyPath: "playbackLikelyToKeepUp")
-            self.playerItem = nil
-        }
-        
-        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: nil)
-    }
+
     
     class func enableBackgroundPlay(){
         do{
@@ -232,11 +223,12 @@ open class Player: NSObject {
         }
     }
     
-    func playWithURL(url:URL){
+    public func playWithURL(url:URL){
         
-        removeStatusObservers()
+       
         
         DispatchQueue.main.async {
+             self.removeStatusObservers()
             self.playerItem = AVPlayerItem.init(url: url)
             self.player.replaceCurrentItem(with: self.playerItem!)
             self.addStatusObservers()

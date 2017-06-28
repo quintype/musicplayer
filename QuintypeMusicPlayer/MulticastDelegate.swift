@@ -12,20 +12,20 @@ import UIKit
 
 open class MulticastDelegate<T>: NSObject {
     
-    var weakDelegates:NSHashTable<AnyObject> = NSHashTable.weakObjects()
+    open var weakDelegates:NSHashTable<AnyObject> = NSHashTable.weakObjects()
     
-    func addDelegate(delegate:T){
+    public func addDelegate(delegate:T){
         weakDelegates.add(delegate as AnyObject?)
     }
     
-    func removeDelegate(delegate:T){
+    public func removeDelegate(delegate:T){
         if weakDelegates.contains(delegate as AnyObject?){
             weakDelegates.remove(delegate as AnyObject?)
         }
     }
     
     
-    func invoke(invokation:(T) -> ()){
+    public func invoke(invokation:(T) -> ()){
         let enumerator = self.weakDelegates.objectEnumerator()
         
         while let delegate: AnyObject = enumerator.nextObject() as AnyObject? {

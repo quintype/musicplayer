@@ -13,7 +13,7 @@ import MediaPlayer
 
 extension Player{
     
-    func configureCommandCenter() {
+ public func configureCommandCenter() {
         
         self.commandCenter.playCommand.addTarget (handler: { [weak self] event -> MPRemoteCommandHandlerStatus in
             guard let musicPlayer = self else { return .commandFailed }
@@ -71,7 +71,7 @@ extension Player{
         }
     }
     
-    func updateNowPlayingInfoForCurrentPlaybackItem(){
+ public func updateNowPlayingInfoForCurrentPlaybackItem(){
         guard (self.player) != nil else {
             self.configureNowPlayingInfo(nil)
             return
@@ -100,7 +100,7 @@ extension Player{
         self.updateNowPlayingInfoElapsedTime()
     }
     
-    func downloadImage(url:URL?, completion:@escaping ((UIImage) -> (Void))){
+ public func downloadImage(url:URL?, completion:@escaping ((UIImage) -> (Void))){
         if let unwrappedUrl = url{
             URLSession.shared.dataTask(with: unwrappedUrl) { (data, response, error) in
                 DispatchQueue.main.async {
@@ -113,12 +113,12 @@ extension Player{
         }
     }
     
-    func configureNowPlayingInfo(_ nowPlayingInfo: [String: AnyObject]?) {
+ public func configureNowPlayingInfo(_ nowPlayingInfo: [String: AnyObject]?) {
         self.nowPlayingInfoCenter.nowPlayingInfo = nowPlayingInfo
         self.nowPlayingInfo = nowPlayingInfo
     }
     
-    func updateNowPlayingInfoElapsedTime() {
+ public func updateNowPlayingInfoElapsedTime() {
         guard var nowPlayingInfo = self.nowPlayingInfo else { return }
         print("Player Current Time:\(self.player.currentTime().seconds)")
         
@@ -127,12 +127,12 @@ extension Player{
         self.configureNowPlayingInfo(nowPlayingInfo)
     }
     
-    func resetNowPlayingInfoCenter(){
+ public func resetNowPlayingInfoCenter(){
         self.nowPlayingInfo = nil
         self.nowPlayingInfoCenter.nowPlayingInfo = nil
     }
     
-    func updatePlayerUI(){
+ public func updatePlayerUI(){
         
         //set the duration
         let playerDuration = self.currentPlayerItemDuration
@@ -156,12 +156,12 @@ extension Player{
         
     }
     
-    func getQueuedTracks() -> [Tracks]?{
+    open func getQueuedTracks() -> [Tracks]?{
         guard let unwrappedDataSource = dataSource else{return nil}
         return unwrappedDataSource.musicPlayerDidAskForQueue()
     }
     
-    func getCurrentSongIndex() -> Int?{
+    open func getCurrentSongIndex() -> Int?{
         guard let unwrappedDataSource = dataSource else{return nil }
         return unwrappedDataSource.musicPlayerDidAskForCurrentSongIndex()
     }

@@ -9,9 +9,9 @@
 import Foundation
 
 open class CMTimeWrapper:NSObject{
-    var seconds:Double
-    var value:Int64
-    var timeScale:Int32
+    open var seconds:Double
+    open var value:Int64
+    open var timeScale:Int32
     
     init(seconds:Double, value:Int64, timeScale:Int32) {
         self.seconds = seconds
