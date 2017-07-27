@@ -73,9 +73,14 @@ extension Player{
         }
     }
     
-    public  func didClickOnPlay(){
+    public func didClickOnPlay(){
         
         if !statusObserversAdded{
+            if self.playerItem == nil{
+                if let unwrappedAsset = self.asset{
+                    self.playerItem = AVPlayerItem(asset: unwrappedAsset)
+                }
+            }
             self.addStatusObservers()
             return
         }
@@ -91,9 +96,8 @@ extension Player{
             self.nowPlayingInfo?[MPNowPlayingInfoPropertyPlaybackRate] = NSNumber(value: 1.0 as Float)
             self.configureNowPlayingInfo(self.nowPlayingInfo)
             
-            
             self.multicastDelegate.invoke { (delegate) in
-                delegate.setPlayButton(state: PlayerState.Playing)
+                delegate.setPlayButton(state: self.playerState)
             }
             
         }else{
@@ -107,12 +111,11 @@ extension Player{
             self.nowPlayingInfo?[MPNowPlayingInfoPropertyPlaybackRate] = NSNumber(value: 0.0 as Float)
             self.configureNowPlayingInfo(self.nowPlayingInfo)
             
-            
-            
             self.multicastDelegate.invoke { (delegate) in
-                delegate.setPlayButton(state: PlayerState.Paused)
+                delegate.setPlayButton(state: self.playerState)
             }
         }
+        
         
     }
     

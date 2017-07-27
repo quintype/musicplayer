@@ -40,8 +40,6 @@ open class Tracks:SafeJsonObject,NSCoding{
     ///Image URL to artwork
     public var artwork_url: String?
     
-    public var trackDict: [String:AnyObject]?
-    
     
     override open func setValue(_ value: Any?, forKey key: String) {
         

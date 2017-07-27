@@ -21,6 +21,7 @@ open class Player: NSObject {
     var _timeObserverQueue:DispatchQueue?
     
     var statusObserversAdded = false
+    var asset:AVURLAsset?
     
     open weak var dataSource:MusicPlayerDataSource?{
         
@@ -28,21 +29,23 @@ open class Player: NSObject {
             guard let unwrappedDelegate = self.multicastDelegate else {
                 return
             }
-            
-            unwrappedDelegate.invoke { (delegate) in
-                guard let unwrappedDataSource = self.dataSource else{return}
+            if dataSource !== oldValue{
                 
-                let tracks = unwrappedDataSource.musicPlayerDidAskForQueue()
-                
-                let userDefaults = UserDefaults.standard
-                
-                let encodedData: Data = NSKeyedArchiver.archivedData(withRootObject: tracks)
-                
-                userDefaults.set(encodedData, forKey: "PreviouslyPlayedSongs")
-                
-                userDefaults.synchronize()
-                
-                delegate.shouldupdateTracksList(tracks: tracks)
+                unwrappedDelegate.invoke { (delegate) in
+                    guard let unwrappedDataSource = self.dataSource else{return}
+                    
+                    let tracks = unwrappedDataSource.musicPlayerDidAskForQueue()
+                    
+                    let userDefaults = UserDefaults.standard
+                    
+                    let encodedData: Data = NSKeyedArchiver.archivedData(withRootObject: tracks)
+                    
+                    userDefaults.set(encodedData, forKey: "PreviouslyPlayedSongs")
+                    
+                    userDefaults.synchronize()
+                    
+                    delegate.shouldupdateTracksList(tracks: tracks)
+                }
             }
             print("MusicPlayerDataSource Changed")
         }
@@ -256,17 +259,15 @@ open class Player: NSObject {
     public func playWithURL(url:URL){
         
         let keys = ["duration","tracks","playable","rate"]
-        let asset = AVURLAsset(url: url, options: .none)
-        
-        self.player.isMuted = true
+        asset = AVURLAsset(url: url, options: .none)
         
         if self.isInternetAvailable(){
             
-            asset.loadValuesAsynchronously(forKeys: keys, completionHandler: {
+            asset?.loadValuesAsynchronously(forKeys: keys, completionHandler: {
                 
                 for key in keys{
                     var error:NSError? = nil
-                    let status = asset.statusOfValue(forKey: key, error: &error)
+                    let status = self.asset?.statusOfValue(forKey: key, error: &error)
                     
                     if status == .failed{
                         self.playerState = PlayerState.Failed
@@ -274,41 +275,64 @@ open class Player: NSObject {
                     }
                 }
                 
-                if asset.isPlayable == false{
+                if self.asset?.isPlayable == false{
                     self.playerState = PlayerState.Failed
                     return
                 }
                 
                 DispatchQueue.main.async {
-                    self.removeStatusObservers()
-                    self.playerItem = AVPlayerItem(asset: asset)
-                    self.addStatusObservers()
+                    
+                    if let unwrappedAsset = self.asset{
+                        self.playerItem = AVPlayerItem(asset: unwrappedAsset)
+                        self.addStatusObservers()
+                    }
+                    
                 }
                 
             })
-        }else{
-            //Handle No internet condition
+            
             DispatchQueue.main.async {
-                let banner = Banner(title: "No Internet", subtitle: "Please connect to internet.")
-                banner.show()
+                //check this
                 self.deinitTimeObserver()
-                self.player = nil
-                
-                self.player = AVPlayer()
-                
                 self.removeStatusObservers()
+                
+                self.player.replaceCurrentItem(with: nil)
+                
                 self.updatePlayerUI()
                 
             }
+            
+        }else{
+            //Handle No internet condition
+            
+            self.handleNoInternetCondition()
             
             
         }
         
         if playerHeight == 0{
-            playerHeight = 70
             self.multicastDelegate.invoke { (delegate) in
                 delegate.shouldShowMusicPlayer(shouldShow: true)
             }
+        }
+    }
+    
+    func handleNoInternetCondition(){
+        DispatchQueue.main.async {
+            let banner = Banner(title: "No Internet", subtitle: "Please connect to internet.")
+            banner.show()
+            self.deinitTimeObserver()
+            self.player = nil
+            
+            self.player = AVPlayer()
+            
+            self.removeStatusObservers()
+            self.updatePlayerUI()
+            
+            self.multicastDelegate.invoke(invokation: { (delegate) in
+                delegate.setPlayButton(state: .Paused)
+            })
+            
         }
     }
     
