@@ -36,4 +36,6 @@ public protocol MusicPlayerDelegate:class{
     func shouldShowMusicPlayer(shouldShow:Bool)
     func shouldupdateTracksList(tracks:[Tracks]?)
     
+    func showBufferedRange(value:Double)
+    
 }

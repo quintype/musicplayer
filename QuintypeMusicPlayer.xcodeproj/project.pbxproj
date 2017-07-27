@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1D8455B21F209EC0001F7B1B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D8455B11F209EC0001F7B1B /* AppDelegate.swift */; };
+		1D8455B41F209EC0001F7B1B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D8455B31F209EC0001F7B1B /* ViewController.swift */; };
+		1D8455B71F209EC0001F7B1B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1D8455B51F209EC0001F7B1B /* Main.storyboard */; };
+		1D8455B91F209EC0001F7B1B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1D8455B81F209EC0001F7B1B /* Assets.xcassets */; };
+		1D8455BC1F209EC0001F7B1B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1D8455BA1F209EC0001F7B1B /* LaunchScreen.storyboard */; };
+		1D8455C11F209F00001F7B1B /* QuintypeMusicPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D75F58B1EF931B5005FA1AC /* QuintypeMusicPlayer.framework */; };
 		5D75F5901EF931B5005FA1AC /* QuintypeMusicPlayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 5D75F58E1EF931B5005FA1AC /* QuintypeMusicPlayer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5D75F5971EF931C6005FA1AC /* QuintypeMusicPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D75F5961EF931C6005FA1AC /* QuintypeMusicPlayer.swift */; };
 		5D75F5C11EF93E88005FA1AC /* Ancher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D75F5B61EF93E88005FA1AC /* Ancher.swift */; };
@@ -24,6 +30,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1D8455AF1F209EC0001F7B1B /* MusicPlayerSample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MusicPlayerSample.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		1D8455B11F209EC0001F7B1B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		1D8455B31F209EC0001F7B1B /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		1D8455B61F209EC0001F7B1B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		1D8455B81F209EC0001F7B1B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		1D8455BB1F209EC0001F7B1B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		1D8455BD1F209EC0001F7B1B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5D75F58B1EF931B5005FA1AC /* QuintypeMusicPlayer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = QuintypeMusicPlayer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5D75F58E1EF931B5005FA1AC /* QuintypeMusicPlayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QuintypeMusicPlayer.h; sourceTree = "<group>"; };
 		5D75F58F1EF931B5005FA1AC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -43,6 +56,14 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		1D8455AC1F209EC0001F7B1B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1D8455C11F209F00001F7B1B /* QuintypeMusicPlayer.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		5D75F5871EF931B5005FA1AC /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -53,10 +74,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1D8455B01F209EC0001F7B1B /* MusicPlayerSample */ = {
+			isa = PBXGroup;
+			children = (
+				1D8455B11F209EC0001F7B1B /* AppDelegate.swift */,
+				1D8455B31F209EC0001F7B1B /* ViewController.swift */,
+				1D8455B51F209EC0001F7B1B /* Main.storyboard */,
+				1D8455B81F209EC0001F7B1B /* Assets.xcassets */,
+				1D8455BA1F209EC0001F7B1B /* LaunchScreen.storyboard */,
+				1D8455BD1F209EC0001F7B1B /* Info.plist */,
+			);
+			path = MusicPlayerSample;
+			sourceTree = "<group>";
+		};
 		5D75F5811EF931B5005FA1AC = {
 			isa = PBXGroup;
 			children = (
 				5D75F58D1EF931B5005FA1AC /* QuintypeMusicPlayer */,
+				1D8455B01F209EC0001F7B1B /* MusicPlayerSample */,
 				5D75F58C1EF931B5005FA1AC /* Products */,
 			);
 			sourceTree = "<group>";
@@ -65,6 +100,7 @@
 			isa = PBXGroup;
 			children = (
 				5D75F58B1EF931B5005FA1AC /* QuintypeMusicPlayer.framework */,
+				1D8455AF1F209EC0001F7B1B /* MusicPlayerSample.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -113,6 +149,23 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		1D8455AE1F209EC0001F7B1B /* MusicPlayerSample */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1D8455C01F209EC0001F7B1B /* Build configuration list for PBXNativeTarget "MusicPlayerSample" */;
+			buildPhases = (
+				1D8455AB1F209EC0001F7B1B /* Sources */,
+				1D8455AC1F209EC0001F7B1B /* Frameworks */,
+				1D8455AD1F209EC0001F7B1B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MusicPlayerSample;
+			productName = MusicPlayerSample;
+			productReference = 1D8455AF1F209EC0001F7B1B /* MusicPlayerSample.app */;
+			productType = "com.apple.product-type.application";
+		};
 		5D75F58A1EF931B5005FA1AC /* QuintypeMusicPlayer */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 5D75F5931EF931B5005FA1AC /* Build configuration list for PBXNativeTarget "QuintypeMusicPlayer" */;
@@ -137,9 +190,15 @@
 		5D75F5821EF931B5005FA1AC /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftUpdateCheck = 0820;
 				LastUpgradeCheck = 0820;
 				ORGANIZATIONNAME = Albin.git;
 				TargetAttributes = {
+					1D8455AE1F209EC0001F7B1B = {
+						CreatedOnToolsVersion = 8.2.1;
+						DevelopmentTeam = K6F4AGE4B2;
+						ProvisioningStyle = Automatic;
+					};
 					5D75F58A1EF931B5005FA1AC = {
 						CreatedOnToolsVersion = 8.2.1;
 						LastSwiftMigration = 0820;
@@ -153,6 +212,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				Base,
 			);
 			mainGroup = 5D75F5811EF931B5005FA1AC;
 			productRefGroup = 5D75F58C1EF931B5005FA1AC /* Products */;
@@ -160,11 +220,22 @@
 			projectRoot = "";
 			targets = (
 				5D75F58A1EF931B5005FA1AC /* QuintypeMusicPlayer */,
+				1D8455AE1F209EC0001F7B1B /* MusicPlayerSample */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		1D8455AD1F209EC0001F7B1B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1D8455BC1F209EC0001F7B1B /* LaunchScreen.storyboard in Resources */,
+				1D8455B91F209EC0001F7B1B /* Assets.xcassets in Resources */,
+				1D8455B71F209EC0001F7B1B /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		5D75F5891EF931B5005FA1AC /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -175,6 +246,15 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		1D8455AB1F209EC0001F7B1B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1D8455B41F209EC0001F7B1B /* ViewController.swift in Sources */,
+				1D8455B21F209EC0001F7B1B /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		5D75F5861EF931B5005FA1AC /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -197,7 +277,52 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXVariantGroup section */
+		1D8455B51F209EC0001F7B1B /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				1D8455B61F209EC0001F7B1B /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		1D8455BA1F209EC0001F7B1B /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				1D8455BB1F209EC0001F7B1B /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
 /* Begin XCBuildConfiguration section */
+		1D8455BE1F209EC0001F7B1B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = K6F4AGE4B2;
+				INFOPLIST_FILE = MusicPlayerSample/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.quintype.MusicPlayerSample;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Debug;
+		};
+		1D8455BF1F209EC0001F7B1B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = K6F4AGE4B2;
+				INFOPLIST_FILE = MusicPlayerSample/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.quintype.MusicPlayerSample;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Release;
+		};
 		5D75F5911EF931B5005FA1AC /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -341,6 +466,14 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		1D8455C01F209EC0001F7B1B /* Build configuration list for PBXNativeTarget "MusicPlayerSample" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1D8455BE1F209EC0001F7B1B /* Debug */,
+				1D8455BF1F209EC0001F7B1B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
 		5D75F5851EF931B5005FA1AC /* Build configuration list for PBXProject "QuintypeMusicPlayer" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

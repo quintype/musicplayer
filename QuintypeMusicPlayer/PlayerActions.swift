@@ -75,6 +75,11 @@ extension Player{
     
     public  func didClickOnPlay(){
         
+        if !statusObserversAdded{
+            self.addStatusObservers()
+            return
+        }
+        
         //currently not playing Should Play
         
         if !self.player.isPlaying{
@@ -82,6 +87,10 @@ extension Player{
             self.player.play()
             
             self.playerState = PlayerState.Playing
+            
+            self.nowPlayingInfo?[MPNowPlayingInfoPropertyPlaybackRate] = NSNumber(value: 1.0 as Float)
+            self.configureNowPlayingInfo(self.nowPlayingInfo)
+            
             
             self.multicastDelegate.invoke { (delegate) in
                 delegate.setPlayButton(state: PlayerState.Playing)
@@ -95,20 +104,21 @@ extension Player{
             
             self.playerState = PlayerState.Paused
             
+            self.nowPlayingInfo?[MPNowPlayingInfoPropertyPlaybackRate] = NSNumber(value: 0.0 as Float)
+            self.configureNowPlayingInfo(self.nowPlayingInfo)
+            
+            
+            
             self.multicastDelegate.invoke { (delegate) in
                 delegate.setPlayButton(state: PlayerState.Paused)
             }
-            
         }
+        
     }
     
     public func didClickOnNext(){
         
         guard let datasource = self.dataSource else {self.removeStatusObservers(); return}
-        
-        self.multicastDelegate.invoke { (delegate) in
-            delegate.resetDisplayIfNecessary(manager: self)
-        }
         
         if datasource.musicPlayerShoulMoveToNextItem(manager: self){
             if let nextItemURL = datasource.musicPlayerDidAskForNextItem(manager: self){
@@ -122,9 +132,6 @@ extension Player{
     public  func didClickOnPrevious(){
         guard let datasource = self.dataSource else {self.removeStatusObservers(); return}
         
-        self.multicastDelegate.invoke { (delegate) in
-            delegate.resetDisplayIfNecessary(manager: self)
-        }
         
         if datasource.musicPlayerShoulMoveToPreviousItem(manager: self){
             if let nextItemURL = datasource.musicPlayerDidAskForPreviousItem(manager: self){

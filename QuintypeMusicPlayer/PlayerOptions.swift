@@ -19,6 +19,7 @@ public enum PlayerState:String{
     case Paused
     case Interrupted
     case Invalid
+    case Failed
 }
 
 import AVFoundation

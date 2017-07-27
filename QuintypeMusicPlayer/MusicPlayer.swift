@@ -9,16 +9,18 @@
 import UIKit
 import AVFoundation
 import MediaPlayer
-//import Quintype
+import SystemConfiguration
 
 open class Player: NSObject {
     
     open static let sharedInstance = Player(playerAttributes: [Player.BackgroundPolicy:NSNumber.init(value: true)])
-
+    
     static var randomContextForObserver:Int = 0
     var playerItem:AVPlayerItem?
     var timeObserver:Any?
     var _timeObserverQueue:DispatchQueue?
+    
+    var statusObserversAdded = false
     
     open weak var dataSource:MusicPlayerDataSource?{
         
@@ -29,7 +31,18 @@ open class Player: NSObject {
             
             unwrappedDelegate.invoke { (delegate) in
                 guard let unwrappedDataSource = self.dataSource else{return}
-                delegate.shouldupdateTracksList(tracks: unwrappedDataSource.musicPlayerDidAskForQueue())
+                
+                let tracks = unwrappedDataSource.musicPlayerDidAskForQueue()
+                
+                let userDefaults = UserDefaults.standard
+                
+                let encodedData: Data = NSKeyedArchiver.archivedData(withRootObject: tracks)
+                
+                userDefaults.set(encodedData, forKey: "PreviouslyPlayedSongs")
+                
+                userDefaults.synchronize()
+                
+                delegate.shouldupdateTracksList(tracks: tracks)
             }
             print("MusicPlayerDataSource Changed")
         }
@@ -102,6 +115,23 @@ open class Player: NSObject {
         self.configureCommandCenter()
     }
     
+    public func getPreviouslyPlayedPlayListWithCurrentItem() -> ([Tracks],Int)?{
+        
+        let userDefaults = UserDefaults.standard
+        
+        guard let decoded  = userDefaults.data(forKey: "PreviouslyPlayedSongs"), let tracks = NSKeyedUnarchiver.unarchiveObject(with: decoded) as? [Tracks] else{
+            return nil
+        }
+        
+        if let currentTrackIndex = userDefaults.value(forKey: "currentlyPlayingSong") as? Int{
+            
+            return (tracks,currentTrackIndex)
+            
+        }
+        
+        return nil
+    }
+    
     func configurePlayerItemDidEndBlock(){
         
         self.playerItemDIdPlayToItem = {notification in
@@ -149,7 +179,7 @@ open class Player: NSObject {
         
         if let bgPolicy = (attributes[Player.BackgroundPolicy] as? NSNumber)?.boolValue{
             if bgPolicy{
-            Player.enableBackgroundPlay()
+                Player.enableBackgroundPlay()
             }
             
         }
@@ -162,7 +192,7 @@ open class Player: NSObject {
         self.configurePlayerItemDidEndBlock()
     }
     
-
+    
     
     class func enableBackgroundPlay(){
         do{
@@ -225,20 +255,105 @@ open class Player: NSObject {
     
     public func playWithURL(url:URL){
         
-       
+        let keys = ["duration","tracks","playable","rate"]
+        let asset = AVURLAsset(url: url, options: .none)
         
-        DispatchQueue.main.async {
-             self.removeStatusObservers()
-            self.playerItem = AVPlayerItem.init(url: url)
-            self.player.replaceCurrentItem(with: self.playerItem!)
-            self.addStatusObservers()
+        self.player.isMuted = true
+        
+        if self.isInternetAvailable(){
+            
+            asset.loadValuesAsynchronously(forKeys: keys, completionHandler: {
+                
+                for key in keys{
+                    var error:NSError? = nil
+                    let status = asset.statusOfValue(forKey: key, error: &error)
+                    
+                    if status == .failed{
+                        self.playerState = PlayerState.Failed
+                        return
+                    }
+                }
+                
+                if asset.isPlayable == false{
+                    self.playerState = PlayerState.Failed
+                    return
+                }
+                
+                DispatchQueue.main.async {
+                    self.removeStatusObservers()
+                    self.playerItem = AVPlayerItem(asset: asset)
+                    self.addStatusObservers()
+                }
+                
+            })
+        }else{
+            //Handle No internet condition
+            DispatchQueue.main.async {
+                let banner = Banner(title: "No Internet", subtitle: "Please connect to internet.")
+                banner.show()
+                self.deinitTimeObserver()
+                self.player = nil
+                
+                self.player = AVPlayer()
+                
+                self.removeStatusObservers()
+                self.updatePlayerUI()
+                
+            }
+            
+            
         }
         
-        self.multicastDelegate.invoke { (delegate) in
-            delegate.shouldShowMusicPlayer(shouldShow: true)
+        if playerHeight == 0{
+            playerHeight = 70
+            self.multicastDelegate.invoke { (delegate) in
+                delegate.shouldShowMusicPlayer(shouldShow: true)
+            }
         }
     }
     
+    func updateCurrentSongIndex(){
+        
+        let index = self.dataSource?.musicPlayerDidAskForCurrentSongIndex()
+        
+        let userDefaults = UserDefaults.standard
+        userDefaults.set(index!, forKey: "currentlyPlayingSong")
+        userDefaults.synchronize()
+        
+    }
+    
+    public func updateLastPlayedItem(url:URL){
+        self.removeStatusObservers()
+        
+        self.playerState = PlayerState.Paused
+        self.playerItem = AVPlayerItem.init(url: url)
+        self.player.replaceCurrentItem(with: self.playerItem!)
+        
+    }
+    
+    internal func isInternetAvailable() -> Bool {
+        
+        var zeroAddress = sockaddr_in()
+        zeroAddress.sin_len = UInt8(MemoryLayout.size(ofValue: zeroAddress))
+        zeroAddress.sin_family = sa_family_t(AF_INET)
+        
+        let defaultRouteReachability = withUnsafePointer(to: &zeroAddress) {
+            $0.withMemoryRebound(to: sockaddr.self, capacity: 1) {zeroSockAddress in
+                SCNetworkReachabilityCreateWithAddress(nil, zeroSockAddress)
+            }
+        }
+        
+        var flags = SCNetworkReachabilityFlags()
+        
+        if !SCNetworkReachabilityGetFlags(defaultRouteReachability!, &flags) {
+            return false
+        }
+        
+        let isReachable = (flags.rawValue & UInt32(kSCNetworkFlagsReachable)) != 0
+        let needsConnection = (flags.rawValue & UInt32(kSCNetworkFlagsConnectionRequired)) != 0
+        return (isReachable && !needsConnection)
+        
+    }
     
     deinit {
         deinitTimeObserver()
@@ -247,6 +362,3 @@ open class Player: NSObject {
         playerItem = nil
     }
 }
-
-
-

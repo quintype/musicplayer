@@ -13,7 +13,7 @@ import MediaPlayer
 
 extension Player{
     
- public func configureCommandCenter() {
+    public func configureCommandCenter() {
         
         self.commandCenter.playCommand.addTarget (handler: { [weak self] event -> MPRemoteCommandHandlerStatus in
             guard let musicPlayer = self else { return .commandFailed }
@@ -71,7 +71,7 @@ extension Player{
         }
     }
     
- public func updateNowPlayingInfoForCurrentPlaybackItem(){
+    public func updateNowPlayingInfoForCurrentPlaybackItem(){
         guard (self.player) != nil else {
             self.configureNowPlayingInfo(nil)
             return
@@ -89,9 +89,13 @@ extension Player{
         
         self.downloadImage(url: unwrappedUrl, completion: { (image) -> (Void) in
             guard var nowPlayingInfo = self.nowPlayingInfo else { return }
-            nowPlayingInfo[MPMediaItemPropertyArtwork] = MPMediaItemArtwork(boundsSize: CGSize(width: 100, height: 100), requestHandler: { (size) -> UIImage in
-                return image
-            })
+            if #available(iOS 10.0, *) {
+                nowPlayingInfo[MPMediaItemPropertyArtwork] = MPMediaItemArtwork(boundsSize: CGSize(width: 100, height: 100), requestHandler: { (size) -> UIImage in
+                    return image
+                })
+            } else {
+                // Fallback on earlier versions
+            }
             self.configureNowPlayingInfo(nowPlayingInfo)
         })
         
@@ -100,7 +104,7 @@ extension Player{
         self.updateNowPlayingInfoElapsedTime()
     }
     
- public func downloadImage(url:URL?, completion:@escaping ((UIImage) -> (Void))){
+    public func downloadImage(url:URL?, completion:@escaping ((UIImage) -> (Void))){
         if let unwrappedUrl = url{
             URLSession.shared.dataTask(with: unwrappedUrl) { (data, response, error) in
                 DispatchQueue.main.async {
@@ -113,12 +117,12 @@ extension Player{
         }
     }
     
- public func configureNowPlayingInfo(_ nowPlayingInfo: [String: AnyObject]?) {
+    public func configureNowPlayingInfo(_ nowPlayingInfo: [String: AnyObject]?) {
         self.nowPlayingInfoCenter.nowPlayingInfo = nowPlayingInfo
         self.nowPlayingInfo = nowPlayingInfo
     }
     
- public func updateNowPlayingInfoElapsedTime() {
+    public func updateNowPlayingInfoElapsedTime() {
         guard var nowPlayingInfo = self.nowPlayingInfo else { return }
         print("Player Current Time:\(self.player.currentTime().seconds)")
         
@@ -127,19 +131,19 @@ extension Player{
         self.configureNowPlayingInfo(nowPlayingInfo)
     }
     
- public func resetNowPlayingInfoCenter(){
+    public func resetNowPlayingInfoCenter(){
         self.nowPlayingInfo = nil
         self.nowPlayingInfoCenter.nowPlayingInfo = nil
     }
     
- public func updatePlayerUI(){
+    public func updatePlayerUI(){
         
         //set the duration
         let playerDuration = self.currentPlayerItemDuration
         
         self.multicastDelegate.invoke { (delegate) in
             delegate.setPlayeritemDuration(duration: playerDuration.seconds)
-            
+            delegate.resetDisplayIfNecessary(manager: self)
         }
         
         //set artwork Image
@@ -155,6 +159,7 @@ extension Player{
         
         
     }
+    
     
     open func getQueuedTracks() -> [Tracks]?{
         guard let unwrappedDataSource = dataSource else{return nil}
