@@ -68,146 +68,169 @@ extension Player{
     
     
     // The player is going to take some time to buffer the remote resource and prepare it for play. So, only play the music when the player is ready.
-    
+
     override open func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         
         print("KEYPATH:\(keyPath):player Status")
         
         if (keyPath ?? "" == "loadedTimeRanges")  && context == &Player.randomContextForObserver{
-            let playerItem = self.playerItem
             
-            guard let times = playerItem?.loadedTimeRanges else{
-                return
-            }
-            
-            let values = times.map({$0.timeRangeValue})
-            
-            print("Values:\(values)")
-            
-            let durationTotal = values.reduce(0, { (actual, range) -> Double in
-                return actual + range.end.seconds
-            })
-            
-            let dur2 = durationTotal
-            let progress = dur2/self.currentPlayerItemDuration.seconds
-            
-            print("Progress:\(progress)")
-            
-            if values.count > 1{
-                print(values.count)
-            }
-            self.multicastDelegate.invoke(invokation: { (delegate) in
-                delegate.showBufferedRange(value: progress)
-            })
-            
-            
+            self.handleLoadedTimeRanges()
             
         }else
             
             if (keyPath ?? "" == "status")  && context == &Player.randomContextForObserver{
                 
-                if let playerItemD = object as? AVPlayerItem{
-                    
-                    switch playerItemD.status {
-                        
-                    case .readyToPlay:
-                        
-                        self.playerState = PlayerState.ReadyToPlay
-                        
-                        print("KEYPATH:\(keyPath):player Status AVPlayerStatus.readyToPlay")
-                        
-                        initTimeObserver()
-                        updatePlayerUI()
-                        
-                        player.play()
-                        
-                        
-                        break
-                        
-                    case .failed:
-                        
-                        deinitTimeObserver()
-                        self.player = nil
-                        
-                        self.player = AVPlayer()
-                        
-                        updatePlayerUI()
-                        self.playerState = PlayerState.Invalid
-                        
-                        self.multicastDelegate.invoke { (delegate) in
-                            delegate.setPlayButton(state: PlayerState.Invalid)
-                        }
-                        
-                        if self.isInternetAvailable(){
-                            
-                            let banner = Banner(title: "Incorrect URL", subtitle: "Please try again")
-                            banner.show()
-                            
-                        }else{
-                            let banner = Banner(title: "No Internet", subtitle: "Please connect to internet.")
-                            banner.show()
-                        }
-                        break
-                        
-                    case .unknown:
-                        self.playerState = PlayerState.Interrupted
-                        deinitTimeObserver()
-                        break
-                        
-                    }
-                }
+                self.handleStatusNotification(object: object,keyPath: keyPath)
+                
                 
             }else if  (keyPath ?? "" == "playbackLikelyToKeepUp")  && context == &Player.randomContextForObserver{
                 
-                if self.playerItem?.isPlaybackLikelyToKeepUp ?? false{
-                    
-                    //set play button
-                    
-                    self.multicastDelegate.invoke { (delegate) in
-                        delegate.setPlayButton(state: PlayerState.Playing)
-                    }
-                    
-                    print("KEYPATH:\(keyPath):player Item Status isPlaybackLikelyToKeepUp")
-                    
-                    //update the control center after buffering is finished
-                    
-                    self.updateNowPlayingInfoForCurrentPlaybackItem()
-                    
-                    if UIApplication.shared.applicationState == .background{
-                        self.player.play()
-                        self.endBgTask()
-                    }
-                    
-                }else{
-                    self.playerState = PlayerState.Buffering
-                    
-                    //set play button
-                    self.multicastDelegate.invoke { (delegate) in
-                        delegate.setPlayButton(state: PlayerState.Buffering)
-                    }
-                }
+                self.handleLikelyToKeepUp(keyPath: keyPath)
                 
             }else if  (keyPath ?? "" == "playbackBufferEmpty")  && context == &Player.randomContextForObserver{
                 
-                self.playerState = PlayerState.Buffering
-                
-                //set play button
-                self.multicastDelegate.invoke { (delegate) in
-                    delegate.setPlayButton(state: PlayerState.Buffering)
-                }
-                
-                if self.playerItem?.isPlaybackBufferEmpty ?? false{
-                    print("KEYPATH:\(keyPath):player Item Status isPlaybackBufferEmpty")
-                    if UIApplication.shared.applicationState == .background{
-                        self.beginBgTask()
-                    }
-                }else{
-                    print("buffer Not empty")
-                }
+                self.handleBufferEmptyNotification(keyPath:keyPath)
             }
                 
             else{
                 super.observeValue(forKeyPath: keyPath, of: object, change: change, context: context)
+        }
+    }
+    
+    func handleLoadedTimeRanges(){
+        let playerItem = self.playerItem
+        
+        guard let times = playerItem?.loadedTimeRanges else{
+            return
+        }
+        
+        let values = times.map({$0.timeRangeValue})
+        
+        print("Values:\(values)")
+        
+        let durationTotal = values.reduce(0, { (actual, range) -> Double in
+            return actual + range.end.seconds
+        })
+        
+        let dur2 = durationTotal
+        let progress = dur2/self.currentPlayerItemDuration.seconds
+        
+        print("Progress:\(progress)")
+        
+        if values.count > 1{
+            print(values.count)
+        }
+        
+        self.multicastDelegate.invoke(invokation: { (delegate) in
+            delegate.showBufferedRange(value: progress)
+        })
+        
+   
+    }
+    
+    func handleStatusNotification(object:Any?,keyPath:String?){
+        if let playerItemD = object as? AVPlayerItem{
+            
+            switch playerItemD.status {
+                
+            case .readyToPlay:
+                
+                self.playerState = PlayerState.ReadyToPlay
+                
+                print("KEYPATH:\(keyPath):player Status AVPlayerStatus.readyToPlay")
+                
+                initTimeObserver()
+                
+                
+                player.play()
+                
+                
+                break
+                
+            case .failed:
+                
+                deinitTimeObserver()
+                self.player = nil
+                
+                self.player = AVPlayer()
+                
+                updatePlayerUI()
+                self.playerState = PlayerState.Failed
+                
+                self.multicastDelegate.invoke { (delegate) in
+                    delegate.setPlayButton(state: self.playerState)
+                }
+                
+                if Helper.isInternetAvailable(){
+                    
+                    let banner = Banner(title: "Incorrect URL", subtitle: "Please try again")
+                    banner.show()
+                    
+                }else{
+                    let banner = Banner(title: "No Internet", subtitle: "Please connect to internet.")
+                    banner.show()
+                }
+                
+                break
+                
+            case .unknown:
+                self.playerState = PlayerState.Invalid
+                deinitTimeObserver()
+                break
+                
+            }
+        }
+    }
+    
+    func handleLikelyToKeepUp(keyPath:String?){
+        if self.playerItem?.isPlaybackLikelyToKeepUp ?? false{
+            
+            //set play button
+            self.playerState = PlayerState.Playing
+            
+            self.multicastDelegate.invoke { (delegate) in
+                delegate.setPlayButton(state: self.playerState)
+            }
+            
+            print("KEYPATH:\(keyPath):player Item Status isPlaybackLikelyToKeepUp")
+            
+            //update the control center after buffering is finished
+            
+            self.updateNowPlayingInfoForCurrentPlaybackItem()
+            
+            if UIApplication.shared.applicationState == .background{
+                self.player.play()
+                self.endBgTask()
+            }
+            
+        }else{
+            self.playerState = PlayerState.Buffering
+            
+            //set play button
+            self.multicastDelegate.invoke { (delegate) in
+                delegate.setPlayButton(state: self.playerState)
+            }
+        }
+    }
+    
+    func handleBufferEmptyNotification(keyPath:String?){
+        self.playerState = PlayerState.Buffering
+        
+        //set play button
+        self.multicastDelegate.invoke { (delegate) in
+            delegate.setPlayButton(state: self.playerState)
+        }
+        
+        if self.playerItem?.isPlaybackBufferEmpty ?? false{
+            print("KEYPATH:\(keyPath):player Item Status isPlaybackBufferEmpty")
+            
+            if UIApplication.shared.applicationState == .background{
+                self.beginBgTask()
+            }
+            
+        }else{
+            print("buffer Not empty")
         }
     }
     
@@ -227,7 +250,7 @@ extension Player{
                 
                 NotificationCenter.default.removeObserver(self, name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: self.playerItem)
                 
-                self.playerItem = nil
+//                self.playerItem = nil
                 statusObserversAdded = false
                 
             }

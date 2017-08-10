@@ -9,7 +9,7 @@
 import UIKit
 import AVFoundation
 import MediaPlayer
-import SystemConfiguration
+
 
 open class Player: NSObject {
     
@@ -25,10 +25,13 @@ open class Player: NSObject {
     
     open weak var dataSource:MusicPlayerDataSource?{
         
-        didSet {    //called when dataSource changes
+        didSet {
+            
+            //called when dataSource changes
             guard let unwrappedDelegate = self.multicastDelegate else {
                 return
             }
+            
             if dataSource !== oldValue{
                 
                 unwrappedDelegate.invoke { (delegate) in
@@ -261,7 +264,7 @@ open class Player: NSObject {
         let keys = ["duration","tracks","playable","rate"]
         asset = AVURLAsset(url: url, options: .none)
         
-        if self.isInternetAvailable(){
+        if Helper.isInternetAvailable(){
             
             asset?.loadValuesAsynchronously(forKeys: keys, completionHandler: {
                 
@@ -355,30 +358,7 @@ open class Player: NSObject {
         
     }
     
-    internal func isInternetAvailable() -> Bool {
-        
-        var zeroAddress = sockaddr_in()
-        zeroAddress.sin_len = UInt8(MemoryLayout.size(ofValue: zeroAddress))
-        zeroAddress.sin_family = sa_family_t(AF_INET)
-        
-        let defaultRouteReachability = withUnsafePointer(to: &zeroAddress) {
-            $0.withMemoryRebound(to: sockaddr.self, capacity: 1) {zeroSockAddress in
-                SCNetworkReachabilityCreateWithAddress(nil, zeroSockAddress)
-            }
-        }
-        
-        var flags = SCNetworkReachabilityFlags()
-        
-        if !SCNetworkReachabilityGetFlags(defaultRouteReachability!, &flags) {
-            return false
-        }
-        
-        let isReachable = (flags.rawValue & UInt32(kSCNetworkFlagsReachable)) != 0
-        let needsConnection = (flags.rawValue & UInt32(kSCNetworkFlagsConnectionRequired)) != 0
-        return (isReachable && !needsConnection)
-        
-    }
-    
+  
     deinit {
         deinitTimeObserver()
         removeStatusObservers()

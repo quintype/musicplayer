@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1D38FCA51F3C74C300DFDAC3 /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D38FCA41F3C74C300DFDAC3 /* Helper.swift */; };
 		1D8455B21F209EC0001F7B1B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D8455B11F209EC0001F7B1B /* AppDelegate.swift */; };
 		1D8455B41F209EC0001F7B1B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D8455B31F209EC0001F7B1B /* ViewController.swift */; };
 		1D8455B71F209EC0001F7B1B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1D8455B51F209EC0001F7B1B /* Main.storyboard */; };
@@ -30,6 +31,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1D38FCA41F3C74C300DFDAC3 /* Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
 		1D8455AF1F209EC0001F7B1B /* MusicPlayerSample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MusicPlayerSample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1D8455B11F209EC0001F7B1B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1D8455B31F209EC0001F7B1B /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -123,6 +125,7 @@
 				5D75F58E1EF931B5005FA1AC /* QuintypeMusicPlayer.h */,
 				5D75F58F1EF931B5005FA1AC /* Info.plist */,
 				5D75F5961EF931C6005FA1AC /* QuintypeMusicPlayer.swift */,
+				1D38FCA41F3C74C300DFDAC3 /* Helper.swift */,
 			);
 			path = QuintypeMusicPlayer;
 			sourceTree = "<group>";
@@ -260,6 +263,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5D75F5C61EF93E88005FA1AC /* PlayerActions.swift in Sources */,
+				1D38FCA51F3C74C300DFDAC3 /* Helper.swift in Sources */,
 				5D75F5C21EF93E88005FA1AC /* CMTimeWrapper.swift in Sources */,
 				5D75F5C91EF93E88005FA1AC /* PlayerProtocol.swift in Sources */,
 				5D75F5C11EF93E88005FA1AC /* Ancher.swift in Sources */,
@@ -473,6 +477,7 @@
 				1D8455BF1F209EC0001F7B1B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		5D75F5851EF931B5005FA1AC /* Build configuration list for PBXProject "QuintypeMusicPlayer" */ = {
 			isa = XCConfigurationList;
