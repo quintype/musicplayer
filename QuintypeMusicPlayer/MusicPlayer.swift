@@ -22,6 +22,7 @@ open class Player: NSObject {
     
     var statusObserversAdded = false
     var asset:AVURLAsset?
+    var isPlayingOld = false
     
     open weak var dataSource:MusicPlayerDataSource?{
         
@@ -349,15 +350,13 @@ open class Player: NSObject {
         
     }
     
-    public func updateLastPlayedItem(url:URL){
-        self.removeStatusObservers()
-        
+   public func updateLastPlayedItem(url:URL){
+        isPlayingOld = true
         self.playerState = PlayerState.Paused
         self.playerItem = AVPlayerItem.init(url: url)
         self.player.replaceCurrentItem(with: self.playerItem!)
         
     }
-    
   
     deinit {
         deinitTimeObserver()

@@ -73,14 +73,16 @@ extension Player{
         }
     }
     
-    public func didClickOnPlay(){
+    func didClickOnPlay(){
         
-        if !statusObserversAdded{
+        if !statusObserversAdded && isPlayingOld == true{
+            isPlayingOld = false
             if self.playerItem == nil{
                 if let unwrappedAsset = self.asset{
                     self.playerItem = AVPlayerItem(asset: unwrappedAsset)
                 }
             }
+            
             self.addStatusObservers()
             return
         }
