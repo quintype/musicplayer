@@ -36,11 +36,11 @@ extension Player{
         self.player.replaceCurrentItem(with: self.playerItem)
     }
     
-    func handleVideoPlaying(_ notification:Notification){
+    @objc func handleVideoPlaying(_ notification:Notification){
         
         if let object = notification.object as? AVPlayerItem{
             
-            if object.asset.tracks(withMediaType: AVMediaTypeVideo).count == 0{
+            if object.asset.tracks(withMediaType: AVMediaType.video).count == 0{
                 print("Playing audio")
                 self.shouldPause()
             }else{

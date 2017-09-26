@@ -16,6 +16,7 @@ import UIKit
 extension Player{
     
     /* The user is dragging the movie controller thumb to scrub through the movie. */
+    
     public func beginScrubbing() {
         scrubbingRate = self.player.rate
         self.player.rate = 0.0

@@ -126,7 +126,7 @@ class Banner:UIView{
         var size = UILayoutFittingCompressedSize
         size.width = MAXWidth
         
-        let Size = self.systemLayoutSizeFitting(size, withHorizontalFittingPriority: 1000, verticalFittingPriority:1)
+        let Size = self.systemLayoutSizeFitting(size, withHorizontalFittingPriority: UILayoutPriority(rawValue: 1000), verticalFittingPriority:UILayoutPriority(rawValue: 1))
         self.removeConstraint(widthConstraint)
         
         self.translatesAutoresizingMaskIntoConstraints = true
