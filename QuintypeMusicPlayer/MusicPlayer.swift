@@ -260,12 +260,12 @@ open class Player: NSObject {
         }
     }
     
-    public func playWithURL(url:URL){
+    public func playWithURL(url:URL,isdownloaded:Bool? = false){
         
         let keys = ["duration","tracks","playable","rate"]
         asset = AVURLAsset(url: url, options: .none)
         
-        if Helper.isInternetAvailable(){
+        if Helper.isInternetAvailable() || isdownloaded!{
             
             asset?.loadValuesAsynchronously(forKeys: keys, completionHandler: {
                 

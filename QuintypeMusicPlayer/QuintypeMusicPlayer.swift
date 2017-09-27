@@ -9,17 +9,20 @@
 
 open class QuintypeMusicPlayer{
     
-    public static let sharedInstance:QuintypeMusicPlayer = QuintypeMusicPlayer()
+    internal static var QMPlayer:QuintypeMusicPlayer = QuintypeMusicPlayer()
+    internal var clientID : String = ""
     
-    private var _musicPlayer:Player?
+    private var player:Player!
     
-    open static var player:Player{
-        get{
-            if QuintypeMusicPlayer.sharedInstance._musicPlayer == nil{
-                QuintypeMusicPlayer.sharedInstance._musicPlayer = Player()
-            }
-            return QuintypeMusicPlayer.sharedInstance._musicPlayer!
+    open static func sharedInstance(clientId:String)->Player{
+    
+        QuintypeMusicPlayer.QMPlayer.clientID = clientId
+        
+        if QMPlayer.player == nil{
+            QMPlayer.player = Player()
         }
+        return QMPlayer.player
     }
+    
 }
 

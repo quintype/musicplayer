@@ -29,7 +29,7 @@ open class Tracks:SafeJsonObject,NSCoding{
     public var downloadable: Bool?
     
     ///Streaming URL
-    public var stream_url: String?
+    public var stream_url: URL?
     
     ///Downloading URL
     public var download_url: String?
@@ -38,7 +38,9 @@ open class Tracks:SafeJsonObject,NSCoding{
     public var title: String?
     
     ///Image URL to artwork
-    public var artwork_url: String?
+    public var artwork_url: URL?
+    
+    public var downloaded:Bool?
     
     
     override open func setValue(_ value: Any?, forKey key: String) {
@@ -56,6 +58,31 @@ open class Tracks:SafeJsonObject,NSCoding{
             
             self.user = user
             
+        }else if key == "artwork_url"{
+            
+            if var unwrappedUrl = value as? String{
+
+                unwrappedUrl.append("?client_id=\(QuintypeMusicPlayer.QMPlayer.clientID)")
+                
+                let url = URL(string: unwrappedUrl)
+                self.artwork_url = url
+                
+            }else{
+                super.setValue(value, forKey: key)
+            }
+            
+        }else if key == "stream_url"{
+            if var unwrappedStreamingUrl = value as? String{
+                
+                unwrappedStreamingUrl.append("?client_id=\(QuintypeMusicPlayer.QMPlayer.clientID)")
+                
+                let url = URL(string: unwrappedStreamingUrl)
+                
+                self.stream_url = url
+                
+            }else{
+                self.stream_url = nil
+            }
         }else {
             super.setValue(value, forKey: key)
         }
@@ -78,11 +105,9 @@ open class Tracks:SafeJsonObject,NSCoding{
         downloadable = aDecoder.decodeObject(forKey: "downloadable") as? Bool
         
         download_url = aDecoder.decodeObject(forKey: "download_url") as? String
-        stream_url = aDecoder.decodeObject(forKey: "stream_url") as? String
+        stream_url = aDecoder.decodeObject(forKey: "stream_url") as? URL
         title = aDecoder.decodeObject(forKey: "title") as? String
-        artwork_url = aDecoder.decodeObject(forKey: "artwork_url") as? String
-        
-        
+        artwork_url = aDecoder.decodeObject(forKey: "artwork_url") as? URL
     }
     
     open func encode(with aCoder: NSCoder) {
@@ -91,16 +116,16 @@ open class Tracks:SafeJsonObject,NSCoding{
         aCoder.encode(created_at ?? NSNumber.self, forKey: "created_at")
         
         if let unwrappedUser = user{
-            aCoder.encode(user, forKey: "user")
+            aCoder.encode(unwrappedUser, forKey: "user")
         }
         
         aCoder.encode(duration ?? NSNumber.self, forKey: "duration")
         aCoder.encode(streamable ?? false, forKey: "streamable")
         aCoder.encode(downloadable ?? false, forKey: "downloadable")
-        aCoder.encode(stream_url ?? "", forKey: "stream_url")
+        aCoder.encode(stream_url ?? URL(string:""), forKey: "stream_url")
         aCoder.encode(download_url ?? "", forKey: "download_url")
         aCoder.encode(title ?? "", forKey: "title")
-        aCoder.encode(artwork_url ?? "", forKey: "artwork_url")
+        aCoder.encode(artwork_url ?? URL(string:""), forKey: "artwork_url")
         
         
         

@@ -9,7 +9,7 @@
 import Foundation
 
 // MARK: Json parser classs for safely paring json
-
+@objcMembers
 open class SafeJsonObject: NSObject {
     
     override open func setValue(_ value: Any?, forKey key: String) {

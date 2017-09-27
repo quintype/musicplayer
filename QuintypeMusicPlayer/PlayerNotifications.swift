@@ -71,7 +71,7 @@ extension Player{
 
     override open func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         
-        print("KEYPATH:\(keyPath):player Status")
+        print("KEYPATH:\(keyPath ?? ""):player Status")
         
         if (keyPath ?? "" == "loadedTimeRanges")  && context == &Player.randomContextForObserver{
             
@@ -138,7 +138,7 @@ extension Player{
                 
                 self.playerState = PlayerState.ReadyToPlay
                 
-                print("KEYPATH:\(keyPath):player Status AVPlayerStatus.readyToPlay")
+                print("KEYPATH:\(keyPath ?? ""):player Status AVPlayerStatus.readyToPlay")
                 
                 initTimeObserver()
                 
@@ -193,7 +193,7 @@ extension Player{
                 delegate.setPlayButton(state: self.playerState)
             }
             
-            print("KEYPATH:\(keyPath):player Item Status isPlaybackLikelyToKeepUp")
+            print("KEYPATH:\(keyPath ?? ""):player Item Status isPlaybackLikelyToKeepUp")
             
             //update the control center after buffering is finished
             
@@ -223,7 +223,7 @@ extension Player{
         }
         
         if self.playerItem?.isPlaybackBufferEmpty ?? false{
-            print("KEYPATH:\(keyPath):player Item Status isPlaybackBufferEmpty")
+            print("KEYPATH:\(keyPath ?? ""):player Item Status isPlaybackBufferEmpty")
             
             if UIApplication.shared.applicationState == .background{
                 self.beginBgTask()

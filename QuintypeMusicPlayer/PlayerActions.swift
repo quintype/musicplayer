@@ -74,7 +74,7 @@ extension Player{
         }
     }
     
-    func didClickOnPlay(){
+   public func didClickOnPlay(){
         
         if !statusObserversAdded && isPlayingOld == true{
             isPlayingOld = false
